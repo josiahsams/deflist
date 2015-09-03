@@ -1,0 +1,52 @@
+class DefectController < ApplicationController
+def list
+  @owner = params[:owner]
+	input = params[:owner].split(",")
+	@owner = input[0]
+	@state = input[1]
+       if (@state.nil?)
+               @list_all=`rsh 9.3.79.197 -l josamuel "/usr/contrib/bin/Report -family aix -view DefectView -where \\"ownerlogin in '#{@owner}' \\" -raw " | awk -F "|" '{print \$1,\$2, \$3,\$6, \$22,\$5, \$8,\$10,\$16, \$9, \$29}' `
+        else
+		@list_all=`rsh 9.3.79.197 -l josamuel "/usr/contrib/bin/Report -family aix -view DefectView -where \\"ownerlogin in '#{@owner}' and state in '#{@state}'\\" -raw " | awk -F "|" '{print \$1,\$2, \$3,\$6, \$22,\$5, \$8,\$10,\$16, \$9, \$29}' `
+                # @list_all=`rsh 9.3.79.197 -l josamuel "/usr/contrib/bin/Report -family aix -view DefectView -where \\"ownerlogin in '#{@owner}' and state in '#{@state}'\\"" | tail +4 | grep -E "^a|^p" `
+        end
+	
+end
+
+def list1
+	@owner = params[:owner]
+        input = params[:owner].split(",")
+        @owner = input[0]
+        @state = input[1]
+        if (@state.nil?)
+                @list_all=`rsh 9.3.79.197 -l josamuel "/usr/contrib/bin/Report -family aix -view DefectView -where \\"originlogin in '#{@owner}' \\"" | tail +4 | grep -E "^a|^p" `
+        else
+                @list_all=`rsh 9.3.79.197 -l josamuel "/usr/contrib/bin/Report -family aix -view DefectView -where \\"originlogin in '#{@owner}' and state in '#{@state}'\\"" | tail +4 | grep -E "^a|^p" `
+	end
+end
+
+def feature
+        @owner = params[:owner]
+        input = params[:owner].split(",")
+        @owner = input[0]
+        @state = input[1]
+        if (@state.nil?)
+                @list_all=`rsh 9.3.79.197 -l josamuel "/usr/contrib/bin/Report -family aix -view FeatureView -where \\"ownerlogin in '#{@owner}' \\"" | tail +4 | grep -E "^d" `
+        else
+                @list_all=`rsh 9.3.79.197 -l josamuel "/usr/contrib/bin/Report -family aix -view FeatureView -where \\"ownerlogin in '#{@owner}' and state in '#{@state}'\\"" | tail +4 | grep -E "^d" `
+	end
+	end
+end
+
+def admin
+        @owner = params[:owner]
+        input = params[:owner].split(",")
+        @owner = input[0]
+        @state = input[1]
+        if (@state.nil?)
+                @list_all=`rsh 9.3.79.197 -l josamuel "/usr/contrib/bin/Report -family admin -view DefectView -where \\"originlogin in '#{@owner}' \\"" | tail +4 | grep -E "^a|^p" `
+        else
+                @list_all=`rsh 9.3.79.197 -l josamuel "/usr/contrib/bin/Report -family admin -view DefectView -where \\"originlogin in '#{@owner}' and state in '#{@state}'\\"" | tail +4 | grep -E "^a|^p" `
+        end
+end
+

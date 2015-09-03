@@ -1,0 +1,23 @@
+<html>
+<title>AIX Defect Information Page</title>
+<%= javascript_include_tag :defaults %>
+<%= stylesheet_link_tag "application", :media => "all" %>
+<style>
+        body {
+        margin: 20px 0;
+        text-align: center;
+        background: #8ab3d1 url(<%= image_path "bg-tile.gif"%>) repeat-x;
+	font-family:arial,serif,sans-serif;
+        font-size:14px;
+        color: #333;
+        }
+</style>
+<body>
+
+<%= yield  %>
+
+<div id="footer">send ur comments to <a href="mailto:josiah_sams@in.ibm.com"><b>Joe</b></a>
+&nbsp;&nbsp;<a href="#" onClick="footerClose()" >[ x ]</a>
+</body>
+</html>
+

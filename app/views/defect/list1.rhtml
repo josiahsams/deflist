@@ -1,0 +1,47 @@
+<%= javascript_include_tag "sorttable.js" %>
+<title>Defect Lists</title>
+<style>
+a{
+    text-decoration: none;
+    color: 00006e;    
+
+}
+
+</style>
+<body bgcolor=#bbbbbb>
+<center>
+<h4>Defect opened by <%= @owner %></h4>
+<form class="searchable" >
+        <b>Filter:</b> <input name="filt" onkeyup="filter(this, 'filtertable', '1')" type="text"></span>
+</form>
+
+<table id="filtertable"  bgcolor="#ffffff" align="center" class="sortable"  style="border: solid orange thin"><thead>
+    <tr><th>Sno
+    <th>T<th>Defect<th>Component<th>State<th>Originator<th>Owner<th>Sev<th>Age<th>Abstract </thead>
+<% i=0 %>
+<% @list_all.each do |list|%>
+       <%i+=1%> 
+    
+	    <% fields = list.split %>
+        <% if ( i % 2 == 0) %>
+        <tr class="odd">
+        <% else %>
+        <tr class="even">
+        <% end %>
+
+    <td><%= i %>
+    <td><%=fields[0] %>
+    <td><a href="http://aixptools.austin.ibm.com/pcgi/cmvcreport.pl?defect=aix,<%=fields[1] %>"><%=fields[1] %></a>
+    <td><%=fields[2] %>
+    <td><%=fields[3] %>      
+    <td><%=fields[4] %>
+    <td><%=fields[5] %>
+    <td><%=fields[6] %>
+    <td><%=fields[7] %>
+    <td><%=fields[8] %>&nbsp;<%=fields[9] %>&nbsp;<%=fields[10] %>&nbsp;<%=fields[11] %>&nbsp;<%=fields[12] %>&nbsp;<%=fields[13] %>&nbsp;<%=fields[14] %>
+    &nbsp;<%=fields[15] %>&nbsp;<%=fields[16] %>&nbsp;<%=fields[17] %>&nbsp;<%=fields[18] %>
+
+    <% end %>
+    
+    </table>
+</center>
